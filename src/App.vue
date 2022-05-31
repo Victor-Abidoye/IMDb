@@ -1,16 +1,30 @@
-<script setup>
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-</script>
-
 <template>
   <div>
-    <p>
-      hello world
-    </p>
+    <SearchMovie
+      :modelValue="searchMovieName"
+      @update:modelValue="searching"
+    />
   </div>
 </template>
 
-<style lang="scss">
-  
+<script setup>
+import { ref } from 'vue'
+
+import SearchMovie from './components/SearchMovie.vue'
+
+//DEFINING VARIABLES
+const searchMovieName = ref('')
+
+const searching = (searchText) => {
+  searchMovieName.value = searchText
+}
+</script>
+
+<style lang="scss" scoped>
+div {
+  --black: #121212;
+  --black-fade: #252525;
+  padding: 10px 30px;
+  background-color: var(--black);
+}
 </style>
