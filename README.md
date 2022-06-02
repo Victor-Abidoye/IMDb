@@ -1,7 +1,13 @@
-# Vue 3 + Vite
-
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## Website Link
+The link to the live project is available at [TMDb movie Trailer](https://tmdb-api-trailer.netlift.app)
 
 ## Recommended IDE Setup
+The instructions will get a local copy of the project up and running for development and testing purposes
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
+## perequisites
+- GIT
+- VUE
+
+## known issue
+- Since the Trailers are inserted from YouTube, I thought it would be better not to mess with the iframe size of the video in the modal because of the aspect ratio these videos come in
+- Also, the API uses was from TMDb istead of IMDb because of issues with getting API key 
