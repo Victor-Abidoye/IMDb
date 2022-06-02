@@ -164,6 +164,7 @@ onBeforeMount(() => {
         p:nth-child(2) {
           color: grey;
           font-size: small;
+          padding: 8px 0;
         }
       }
     }
