@@ -5,7 +5,6 @@
       <div>
         <p><i class="icofont-play" style="color: white"></i></p>
         <p>Watch Trailer</p>
-        <p>Trailer Unavailable</p>
       </div>
     </div>
     <p class="title">
