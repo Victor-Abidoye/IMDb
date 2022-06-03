@@ -57,5 +57,14 @@ onBeforeMount(() => {
   justify-content: center;
   align-items: center;
 }
-
+iframe{
+  height: 60%;
+  width: 80%;
+}
+@media only screen and (max-width: 800px) {
+  iframe{
+    width: 560px;
+    height: 315px;
+  }
+}
 </style>

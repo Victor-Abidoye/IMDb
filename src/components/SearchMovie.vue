@@ -1,7 +1,7 @@
 <template>
   <div>
     <input
-      type="text"
+      type="search"
       :value="modelValue"
       @input="$emit('update:modelValue', $event.target.value)"
       placeholder="Search"
@@ -20,11 +20,11 @@ const props = defineProps({
 div {
   display: grid;
   grid-template-columns: minmax(300px, 6fr) 4fr;
-  margin: 30px 0px;
+  margin: 20px 0px;
   input {
     background-color: var(--black-fade);
     border-radius: 5px;
-    height: 30px;
+    height: 40px;
     color: white;
     padding: 3px 10px;
     outline: none;

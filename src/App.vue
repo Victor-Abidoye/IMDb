@@ -1,6 +1,7 @@
 <template>
   <div id="my-app">
     <SearchMovie :modelValue="searchMovieName" @update:modelValue="searching" />
+    <p v-if="searchMovieName">Search results for <span>"{{searchMovieName}}"</span> </p>
     <Movies :movies="movies" :isSearching="!searchMovieName.length" />
   </div>
 </template>
@@ -69,5 +70,12 @@ watchEffect(() => {
   padding: 30px;
   background-color: var(--black);
   height: 100%;
+  p {
+    color: white;
+    padding-bottom: 10px;
+    span {
+      color: gray;
+    }
+  }
 }
 </style>
