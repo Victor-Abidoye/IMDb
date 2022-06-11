@@ -1,7 +1,6 @@
 <template>
   <div class="card">
-    <div>
-    </div>
+    <div></div>
     <p class="title"></p>
     <p class="genre"></p>
   </div>

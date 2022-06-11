@@ -13,7 +13,11 @@
       <MovieSkeleton v-for="i in 20" />
     </div>
     <div v-else>
-      <Error v-if="noMovie" :networkErr="networkErr" :search="searchMovieName" />
+      <Error
+        v-if="noMovie"
+        :networkErr="networkErr"
+        :search="searchMovieName"
+      />
       <Movies v-else :movies="movies" :isSearching="!searchMovieName.length" />
     </div>
   </div>
@@ -80,24 +84,27 @@ watch(searchMovieName, () => {
 
 // UPDATING MOVIES STORE VARIABLE ON CHANGE OR URL VALUE
 watchEffect(() => {
-  axios.get(url.value).then((response) => {
-    movies.value = response.data.results.filter(
-      (vid) => vid.backdrop_path !== null
-    )
-    showSkeleton.value = false
-    networkErr.value = false
-    if (movies.value.length == 0) {
+  axios
+    .get(url.value)
+    .then((response) => {
+      movies.value = response.data.results.filter(
+        (vid) => vid.backdrop_path !== null
+      )
+      showSkeleton.value = false
+      networkErr.value = false
+      if (movies.value.length == 0) {
+        noMovie.value = true
+        return
+      }
+      noMovie.value = false
+    })
+    .catch(function (error) {
+      showSkeleton.value = false
       noMovie.value = true
-      return
-    }
-    noMovie.value = false
-  }).catch(function (error) {
-    showSkeleton.value = false
-    noMovie.value = true
-    if (error.message == 'Network Error') {
-       networkErr.value = true
-    }
-  })
+      if (error.message == 'Network Error') {
+        networkErr.value = true
+      }
+    })
 })
 </script>
 

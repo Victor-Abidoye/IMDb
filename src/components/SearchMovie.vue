@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <header>
     <input
       tabindex="0"
       type="search"
@@ -7,7 +7,7 @@
       @input="$emit('update:modelValue', $event.target.value)"
       placeholder="Search"
     />
-  </div>
+  </header>
 </template>
 
 <script setup>
@@ -18,7 +18,7 @@ const props = defineProps({
 </script>
 
 <style lang="scss" scoped>
-div {
+header {
   display: grid;
   grid-template-columns: minmax(300px, 6fr) 4fr;
   margin: 20px 0px;

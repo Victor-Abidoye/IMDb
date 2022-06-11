@@ -1,5 +1,5 @@
 <template>
-  <div id="hero">
+  <main id="hero">
     <!-- MAIN POSTER AND TRAILER HERO CONTENT -->
     <div class="main" @click="showModal" tabindex="0" @keyup.enter="showModal">
       <img
@@ -31,10 +31,10 @@
           alt=""
         />
         <div>
-          <p>
+          <h1>
             {{ movie.original_title }}
             <span>({{ movie.release_date.slice(0, 4) }})</span>
-          </p>
+          </h1>
           <p>{{ genreStore.join(', ') }}</p>
         </div>
       </div>
@@ -43,7 +43,7 @@
         <p>{{ movie['overview'] }}</p>
       </div>
     </div>
-  </div>
+  </main>
 </template>
 
 <script setup>
@@ -160,11 +160,12 @@ onBeforeMount(() => {
         width: 80px;
       }
       div {
-        p:first-child {
+        h1 {
+          font-size: 20px;
           color: white;
           font-weight: bold;
         }
-        p:nth-child(2) {
+        p {
           color: grey;
           font-size: small;
           padding: 8px 0;

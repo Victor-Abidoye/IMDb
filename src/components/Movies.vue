@@ -3,7 +3,7 @@
   <Hero v-if="movies.length && isSearching" :movie="movies[0]" />
 
   <!-- SHOW MOVIES OR SKELETON DEPENDING ON SEARCH STATE -->
-  <div class="container">
+  <section class="container">
     <Movie
       v-for="movie in isSearching ? movies.slice(1) : movies"
       :key="movie.id"
@@ -17,7 +17,7 @@
       :modalMovie="modalMovie"
       @changeModalMode="changeModal"
     />
-  </div>
+  </section>
 </template>
 
 <script setup>
