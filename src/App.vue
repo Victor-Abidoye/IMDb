@@ -1,7 +1,9 @@
 <template>
   <div id="my-app">
     <SearchMovie :modelValue="searchMovieName" @update:modelValue="searching" />
-    <p v-if="searchMovieName">Search results for <span>"{{searchMovieName}}"</span> </p>
+    <p v-if="searchMovieName">
+      Search results for <span>"{{ searchMovieName }}"</span>
+    </p>
     <Movies :movies="movies" :isSearching="!searchMovieName.length" />
   </div>
 </template>
@@ -34,6 +36,7 @@ const url = ref(
     '&language=en-US&region=NG&release_date.gte=2018-06-01&release_date.lte=2022-05-05&with_release_type=2|3'
 )
 
+let timeout
 // UPDATING URL PATH ON INPUT IN SEARCH
 watch(searchMovieName, () => {
   //WHEN SEARCH BAR IS EMPTY
@@ -45,12 +48,17 @@ watch(searchMovieName, () => {
       '&language=en-US&region=NG&release_date.gte=2018-06-01&release_date.lte=2022-05-05&with_release_type=2|3'
     return
   }
-  url.value =
-    base_URL.value +
-    '/search/movie' +
-    API_key.value +
-    '&query=' +
-    searchMovieName.value.split(' ').join('+')
+
+// DEBOUNCE REQUEST FOR 2 SECONDS
+  clearTimeout(timeout)
+  timeout = setTimeout(() => {
+    url.value =
+      base_URL.value +
+      '/search/movie' +
+      API_key.value +
+      '&query=' +
+      searchMovieName.value.split(' ').join('+')
+  }, 1000)
 })
 
 // UPDATING MOVIES STORE VARIABLE ON CHANGE OR URL VALUE
@@ -59,6 +67,7 @@ watchEffect(() => {
     movies.value = response.data.results.filter(
       (vid) => vid.backdrop_path !== null
     )
+    console.log(movies.value);
   })
 })
 </script>
