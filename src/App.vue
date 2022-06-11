@@ -13,7 +13,7 @@
       <MovieSkeleton v-for="i in 20" />
     </div>
     <div v-else>
-      <Error v-if="noMovie" :search="searchMovieName" />
+      <Error v-if="noMovie" :networkErr="networkErr" :search="searchMovieName" />
       <Movies v-else :movies="movies" :isSearching="!searchMovieName.length" />
     </div>
   </div>
@@ -32,6 +32,7 @@ import MovieSkeleton from './components/MovieSkeleton.vue'
 const searchMovieName = ref('')
 const noMovie = ref(false)
 const showSkeleton = ref(false)
+const networkErr = ref(false)
 
 //UPDATING SEACH MOVIE ON INPUT
 const searching = (searchText) => {
@@ -85,11 +86,19 @@ watchEffect(() => {
     )
     console.log(movies.value)
     showSkeleton.value = false
+    networkErr.value = false
     if (movies.value.length == 0) {
       noMovie.value = true
       return
     }
     noMovie.value = false
+  }).catch(function (error) {
+    console.log(error.message);
+    showSkeleton.value = false
+    noMovie.value = true
+    if (error.message == 'Network Error') {
+       networkErr.value = true
+    }
   })
 })
 </script>
