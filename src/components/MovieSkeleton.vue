@@ -1,7 +1,6 @@
 <template>
   <div class="card">
     <div>
-      <!-- <img src="../assets/girl-curl.svg" alt="" /> -->
     </div>
     <p class="title"></p>
     <p class="genre"></p>
@@ -13,7 +12,6 @@
 <style lang="scss" scoped>
 .card {
   height: 400px;
-  //   border: 1px solid red;
   div {
     height: 85%;
     border-radius: 10px;

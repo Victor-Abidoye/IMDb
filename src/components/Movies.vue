@@ -1,5 +1,8 @@
 <template>
+  <!-- HERO MOVIE -->
   <Hero v-if="movies.length && isSearching" :movie="movies[0]" />
+
+  <!-- SHOW MOVIES OR SKELETON DEPENDING ON SEARCH STATE -->
   <div class="container">
     <Movie
       v-for="movie in isSearching ? movies.slice(1) : movies"
@@ -102,11 +105,6 @@ const showModal = async (id) => {
       }
     }
   }
-}
-.container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-  gap: 35px;
 }
 
 @media only screen and (max-width: 800px) {

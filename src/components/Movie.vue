@@ -1,7 +1,15 @@
 <template>
   <div class="card">
-    <div class="movieImg" @click="$emit('show-modal', movie.id)">
-      <img :src="img_path + movie.poster_path" alt="" />
+    <div
+      class="movieImg"
+      @click="$emit('show-modal', movie.id)"
+      @keyup.enter="$emit('show-modal', movie.id)"
+      tabindex="0"
+    >
+      <img
+        :src="img_path + movie.poster_path"
+        :alt="movie.title + ' movie poster'"
+      />
       <div>
         <p><i class="icofont-play" style="color: white"></i></p>
         <p>Watch Trailer</p>

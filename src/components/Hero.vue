@@ -1,6 +1,7 @@
 <template>
   <div id="hero">
-    <div class="main" @click="showModal">
+    <!-- MAIN POSTER AND TRAILER HERO CONTENT -->
+    <div class="main" @click="showModal" tabindex="0" @keyup.enter="showModal">
       <img
         :src="'https://image.tmdb.org/t/p/w500' + movie.backdrop_path"
         alt=""
@@ -21,6 +22,8 @@
         <p>Watch Trailer</p>
       </div>
     </div>
+
+    <!-- DETAILS ON HERO CONTENT TRAILER -->
     <div class="details">
       <div class="headers">
         <img

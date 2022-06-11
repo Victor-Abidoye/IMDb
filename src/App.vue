@@ -1,10 +1,21 @@
 <template>
   <div id="my-app">
+    <!-- SEARCH BAR COMPONENT -->
     <SearchMovie :modelValue="searchMovieName" @update:modelValue="searching" />
-    <p v-if="searchMovieName">
+
+    <!-- SEARCH TEXT INDICATOR -->
+    <p v-if="searchMovieName && !noMovie">
       Search results for <span>"{{ searchMovieName }}"</span>
     </p>
-    <Movies :movies="movies" :isSearching="!searchMovieName.length" />
+
+    <!-- SHOW SKELETON WHILE SEARCHING -->
+    <div v-if="showSkeleton" class="container">
+      <MovieSkeleton v-for="i in 20" />
+    </div>
+    <div v-else>
+      <Error v-if="noMovie" :search="searchMovieName" />
+      <Movies v-else :movies="movies" :isSearching="!searchMovieName.length" />
+    </div>
   </div>
 </template>
 
@@ -14,9 +25,13 @@ import { ref, watchEffect, watch } from 'vue'
 
 import SearchMovie from './components/SearchMovie.vue'
 import Movies from './components/Movies.vue'
+import Error from './components/Error.vue'
+import MovieSkeleton from './components/MovieSkeleton.vue'
 
 //DEFINING VARIABLES
 const searchMovieName = ref('')
+const noMovie = ref(false)
+const showSkeleton = ref(false)
 
 //UPDATING SEACH MOVIE ON INPUT
 const searching = (searchText) => {
@@ -40,6 +55,7 @@ let timeout
 // UPDATING URL PATH ON INPUT IN SEARCH
 watch(searchMovieName, () => {
   //WHEN SEARCH BAR IS EMPTY
+  clearTimeout(timeout)
   if (!searchMovieName.value) {
     url.value =
       base_URL.value +
@@ -49,8 +65,8 @@ watch(searchMovieName, () => {
     return
   }
 
-// DEBOUNCE REQUEST FOR 2 SECONDS
-  clearTimeout(timeout)
+  // DEBOUNCE REQUEST FOR 2 SECONDS
+  showSkeleton.value = true
   timeout = setTimeout(() => {
     url.value =
       base_URL.value +
@@ -67,7 +83,13 @@ watchEffect(() => {
     movies.value = response.data.results.filter(
       (vid) => vid.backdrop_path !== null
     )
-    console.log(movies.value);
+    console.log(movies.value)
+    showSkeleton.value = false
+    if (movies.value.length == 0) {
+      noMovie.value = true
+      return
+    }
+    noMovie.value = false
   })
 })
 </script>

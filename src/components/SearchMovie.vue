@@ -1,6 +1,7 @@
 <template>
   <div>
     <input
+      tabindex="0"
       type="search"
       :value="modelValue"
       @input="$emit('update:modelValue', $event.target.value)"
