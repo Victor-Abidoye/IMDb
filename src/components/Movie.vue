@@ -15,10 +15,10 @@
         <p>Watch Trailer</p>
       </div>
     </div>
-    <p class="title">
-      {{ movie.title }} <span> ({{ movie.release_date.slice(0, 4) }})</span>
+    <p class="title" >
+      {{ movie.title }} <span v-if="movie.release_date"> ({{ movie.release_date.slice(0, 4) }})</span>
     </p>
-    <p class="genre">{{ genreStore.join(', ') }}</p>
+    <p class="genre" v-if="genreStore">{{ genreStore.join(', ') }}</p>
   </div>
 </template>
 

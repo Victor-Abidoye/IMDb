@@ -84,7 +84,6 @@ watchEffect(() => {
     movies.value = response.data.results.filter(
       (vid) => vid.backdrop_path !== null
     )
-    console.log(movies.value)
     showSkeleton.value = false
     networkErr.value = false
     if (movies.value.length == 0) {
@@ -93,7 +92,6 @@ watchEffect(() => {
     }
     noMovie.value = false
   }).catch(function (error) {
-    console.log(error.message);
     showSkeleton.value = false
     noMovie.value = true
     if (error.message == 'Network Error') {
