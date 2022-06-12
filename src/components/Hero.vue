@@ -48,8 +48,8 @@
 
 <script setup>
 import axios from 'axios'
-
 import { ref, onBeforeMount } from 'vue'
+import { getGenre } from '../composables/getGenre'
 
 const props = defineProps({
   movie: Object,
@@ -60,19 +60,6 @@ const blurrer = ref(null)
 const source = ref('')
 const genreStore = ref([])
 const modalMovie = ref(null)
-
-
-//UPDATES AN ARRAY WITH THE LIST OF GENRE CORRESPONDING TO THE MOVIE
-const getGenre = () => {
-  const newStore = []
-  for (let i = 0; i < props.movie.genre_ids.length; i++) {
-    const store = props.genresList.genres.find((genre) => {
-      return genre.id == props.movie.genre_ids[i]
-    })
-    newStore.push(store.name)
-  }
-  genreStore.value = newStore
-}
 
 //UPDATE modalMovie WITH THE FULL DETAILS OF THE HERO MOVIE
 const playVid = async () => {
@@ -93,7 +80,7 @@ const showModal = async () => {
 }
 
 onBeforeMount(() => {
-  getGenre()
+  genreStore.value = getGenre(props.movie.genre_ids, props.genresList.genres)
 })
 </script>
 

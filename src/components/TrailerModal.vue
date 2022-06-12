@@ -29,7 +29,7 @@ onBeforeMount(() => {
   })
 
   if (!reqVid) {
-    if(props.modalMovie.videos.results.length > 0){
+    if (props.modalMovie.videos.results.length > 0) {
       console.log(props.modalMovie.videos.results[0])
       reqVid = props.modalMovie.videos.results[0]
     } else {
@@ -57,12 +57,12 @@ onBeforeMount(() => {
   justify-content: center;
   align-items: center;
 }
-iframe{
+iframe {
   height: 60%;
   width: 80%;
 }
 @media only screen and (max-width: 800px) {
-  iframe{
+  iframe {
     width: 560px;
     height: 315px;
   }

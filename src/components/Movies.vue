@@ -1,6 +1,10 @@
 <template>
   <!-- HERO MOVIE -->
-  <Hero v-if="movies.length && isSearching && genresList" :movie="movies[0]"  :genresList="genresList" />
+  <Hero
+    v-if="movies.length && isSearching && genresList"
+    :movie="movies[0]"
+    :genresList="genresList"
+  />
 
   <!-- SHOW MOVIES OR SKELETON DEPENDING ON SEARCH STATE -->
   <section class="container">

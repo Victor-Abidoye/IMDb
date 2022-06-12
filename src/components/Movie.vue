@@ -26,10 +26,10 @@
 </template>
 
 <script setup>
-import axios from 'axios'
 import { ref, onBeforeMount } from 'vue'
-const emits = defineEmits(['show-modal'])
+import { getGenre } from '../composables/getGenre'
 
+const emits = defineEmits(['show-modal'])
 const props = defineProps({
   movie: Object,
   genresList: Object,
@@ -38,21 +38,8 @@ const props = defineProps({
 const img_path = ref('https://image.tmdb.org/t/p/w500')
 const genreStore = ref([])
 
-// //UPDATE THE GENRE STORE ARRAY WITH THE LIST OF THE CORRESPONDING MOVIE GENRE
-const getGenre = () => {
-  console.log(props.genresList, props.movie)
-  const newStore = []
-  for (let i = 0; i < props.movie.genre_ids.length; i++) {
-    const store = props.genresList.genres.find((genre) => {
-      return genre.id == props.movie.genre_ids[i]
-    })
-    newStore.push(store.name)
-  }
-  genreStore.value = newStore
-}
-
 onBeforeMount(() => {
-  getGenre()
+  genreStore.value = getGenre(props.movie.genre_ids, props.genresList.genres)
 })
 </script>
 
