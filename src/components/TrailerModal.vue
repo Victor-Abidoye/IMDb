@@ -1,7 +1,7 @@
 <template>
   <div class="modal" style="" @click.self="$emit('changeModalMode')">
     <iframe
-      v-if="source"
+      v-if="source && !noTrailer"
       width="560"
       height="315"
       :src="source"
@@ -10,6 +10,10 @@
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
       allowfullscreen
     ></iframe>
+    <p v-if="noTrailer">
+      Sorry. There is no Trailer available for this video ! <br /><br />
+      <span> click backdrop to close</span>
+    </p>
   </div>
 </template>
 
@@ -22,6 +26,7 @@ const props = defineProps({
 })
 
 const source = ref({})
+const noTrailer = ref(false)
 
 onBeforeMount(() => {
   let reqVid = props.modalMovie.videos.results.find((vid) => {
@@ -30,15 +35,12 @@ onBeforeMount(() => {
 
   if (!reqVid) {
     if (props.modalMovie.videos.results.length > 0) {
-      console.log(props.modalMovie.videos.results[0])
       reqVid = props.modalMovie.videos.results[0]
     } else {
-      emits('changeModalMode')
+      noTrailer.value = true
       return
     }
   }
-  console.log(reqVid)
-
   const link = 'https://www.youtube.com/embed/' + reqVid.key
   source.value = link
 })
@@ -56,6 +58,15 @@ onBeforeMount(() => {
   display: flex;
   justify-content: center;
   align-items: center;
+  p {
+    color: white;
+    font-weight: bold;
+    font-size: 24px;
+    text-align: center;
+    span {
+      color: red;
+    }
+  }
 }
 iframe {
   height: 60%;
@@ -65,6 +76,9 @@ iframe {
   iframe {
     width: 560px;
     height: 315px;
+  }
+  p {
+    width: 90%;
   }
 }
 </style>
