@@ -53,28 +53,20 @@ import { ref, onBeforeMount } from 'vue'
 
 const props = defineProps({
   movie: Object,
+  genresList: Object,
 })
 
 const blurrer = ref(null)
 const source = ref('')
-const genresList = ref(null)
 const genreStore = ref([])
 const modalMovie = ref(null)
 
-//FETCH GENRE NAMES WITH CORRESPONDING IDS
-const fetchGenre = async () => {
-  const { data } = await axios.get(
-    'https://api.themoviedb.org/3/genre/movie/list?api_key=31289f83960f7c207e2f791440bf0796&language=en-US'
-  )
-  genresList.value = data
-  getGenre()
-}
 
 //UPDATES AN ARRAY WITH THE LIST OF GENRE CORRESPONDING TO THE MOVIE
 const getGenre = () => {
   const newStore = []
   for (let i = 0; i < props.movie.genre_ids.length; i++) {
-    const store = genresList.value.genres.find((genre) => {
+    const store = props.genresList.genres.find((genre) => {
       return genre.id == props.movie.genre_ids[i]
     })
     newStore.push(store.name)
@@ -101,7 +93,7 @@ const showModal = async () => {
 }
 
 onBeforeMount(() => {
-  fetchGenre()
+  getGenre()
 })
 </script>
 

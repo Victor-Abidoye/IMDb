@@ -32,27 +32,18 @@ const emits = defineEmits(['show-modal'])
 
 const props = defineProps({
   movie: Object,
+  genresList: Object,
 })
 
 const img_path = ref('https://image.tmdb.org/t/p/w500')
-const genresList = ref(null)
 const genreStore = ref([])
-// const noTrailer = ref(true)
 
-// FETCH LIST OF GENRE API AND THE CORRESPONDING CODE
-const fetchGenre = async () => {
-  const { data } = await axios.get(
-    'https://api.themoviedb.org/3/genre/movie/list?api_key=31289f83960f7c207e2f791440bf0796&language=en-US'
-  )
-  genresList.value = data
-  getGenre()
-}
-
-//UPDATE THE GENRE STORE ARRAY WITH THE LIST OF THE CORRESPONDING MOVIE GENRE
+// //UPDATE THE GENRE STORE ARRAY WITH THE LIST OF THE CORRESPONDING MOVIE GENRE
 const getGenre = () => {
+  console.log(props.genresList, props.movie)
   const newStore = []
   for (let i = 0; i < props.movie.genre_ids.length; i++) {
-    const store = genresList.value.genres.find((genre) => {
+    const store = props.genresList.genres.find((genre) => {
       return genre.id == props.movie.genre_ids[i]
     })
     newStore.push(store.name)
@@ -61,7 +52,7 @@ const getGenre = () => {
 }
 
 onBeforeMount(() => {
-  fetchGenre()
+  getGenre()
 })
 </script>
 

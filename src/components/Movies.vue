@@ -1,6 +1,6 @@
 <template>
   <!-- HERO MOVIE -->
-  <Hero v-if="movies.length && isSearching" :movie="movies[0]" />
+  <Hero v-if="movies.length && isSearching && genresList" :movie="movies[0]"  :genresList="genresList" />
 
   <!-- SHOW MOVIES OR SKELETON DEPENDING ON SEARCH STATE -->
   <section class="container">
@@ -8,8 +8,9 @@
       v-for="movie in isSearching ? movies.slice(1) : movies"
       :key="movie.id"
       :movie="movie"
-      v-if="movies.length"
+      v-if="movies.length && genresList"
       @show-modal="showModal"
+      :genresList="genresList"
     />
     <MovieSkeleton v-else v-for="i in 20" :key="i" />
     <TrailerModal
@@ -22,7 +23,7 @@
 
 <script setup>
 import axios from 'axios'
-import { ref } from 'vue'
+import { ref, onBeforeMount } from 'vue'
 
 import Movie from './Movie.vue'
 import MovieSkeleton from './MovieSkeleton.vue'
@@ -36,6 +37,7 @@ const props = defineProps({
 
 const isModal = ref(false)
 const modalMovie = ref(null)
+const genresList = ref(null)
 
 // HIDES MODAL VIDEO PLAYER ON CLICK OD MODAL BACKGROUND
 const changeModal = () => {
@@ -51,11 +53,23 @@ const fetchModalMovie = async (id) => {
   return data
 }
 
+// FETCH LIST OF GENRE API AND THE CORRESPONDING CODE
+const fetchGenre = async () => {
+  const { data } = await axios.get(
+    'https://api.themoviedb.org/3/genre/movie/list?api_key=31289f83960f7c207e2f791440bf0796&language=en-US'
+  )
+  genresList.value = data
+}
+
 // SHOWS THE CORRESPONDING MODAL FOR THE SELECTED MOIVIE CARD
 const showModal = async (id) => {
   isModal.value = true
   modalMovie.value = await fetchModalMovie(id)
 }
+
+onBeforeMount(() => {
+  fetchGenre()
+})
 </script>
 
 <style lang="scss" scoped>
