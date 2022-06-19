@@ -1,7 +1,7 @@
 <template>
   <div id="my-app">
     <!-- SEARCH BAR COMPONENT -->
-    <SearchMovie :modelValue="searchMovieName" @update:modelValue="searching" />
+    <SearchMovie v-model="searchMovieName" />
 
     <!-- SEARCH TEXT INDICATOR -->
     <p v-if="searchMovieName && !noMovie">
@@ -38,10 +38,6 @@ const noMovie = ref(false)
 const showSkeleton = ref(false)
 const networkErr = ref(false)
 
-//UPDATING SEACH MOVIE ON INPUT
-const searching = (searchText) => {
-  searchMovieName.value = searchText
-}
 
 // COMPONENT STORAGE FOR MOVIES IN (movies) COMPONENT
 const movies = ref([])
